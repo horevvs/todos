@@ -35,23 +35,46 @@ function App() {
   }, [])
 
   //////////////////////////////
-  const addfrominput = () => {
-    let random = Math.random().toFixed(2) * 100
-    setList([...list, { value: inputs, id: random }])
-    setTodo([...todo, { name: inputs, id: random }])
-    let index = list.at();
-    let obj = {
-      name: index.value
-    }
+  // const addfrominput = () => {
+  //   let random = Math.random().toFixed(2) * 100
+  //   setList([...list, { value: inputs, id: random }])
+  //   setTodo([...todo, { name: inputs, id: random }])
+  //   let index = list.at();
+  //   let obj = {
+  //     name: index.value
+  //   }
+  //   fetch('https://todo.soprano.biz/note',
+  //     {
+  //       method: 'POST',
+  //       body: JSON.stringify(obj),
+  //       headers: { 'Content-type': 'application/json; charset=UTF-8', },
+  //     }
+  //   )
+  //   document.location.reload();
+  // }
+
+const addfrominput = () => {
+    // отправляем запрос на добавление записи на сервер
     fetch('https://todo.soprano.biz/note',
       {
         method: 'POST',
-        body: JSON.stringify(obj),
+        body: JSON.stringify({name: inputs}),
         headers: { 'Content-type': 'application/json; charset=UTF-8', },
       }
-    )
-    document.location.reload();
+    ).then((response) => {
+        // Проверяем, что сервер ответил ОК и только потом обновляем state нашего UI объекта
+        if (response.status === 200) {
+          let random = Math.random().toFixed(2) * 100
+		  setList([...list, { value: inputs, id: random }])
+		  setTodo([...todo, { name: inputs, id: random }])
+		}
+		}
+		)
   }
+
+
+
+
   ///////////////////////////////
   const deletehandler = (id) => {
     fetch(`https://todo.soprano.biz/note/${id}`, {
