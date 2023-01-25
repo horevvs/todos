@@ -71,17 +71,17 @@ function App() {
     })
 
     fetch('https://todo.soprano.biz/task')
-    .then(
-      (response) => {
-        // Проверяем, что сервер ответил ОК и только потом обновляем state нашего UI объекта
-        if (response.status == 200) {
-          fetch('https://todo.soprano.biz/task')
-       
-          console.log(response.status);
-        }
-      }
+      .then(
+        (response) => {
+          // Проверяем, что сервер ответил ОК и только потом обновляем state нашего UI объекта
+          if (response.status == 200) {
+            fetch('https://todo.soprano.biz/task')
 
-    )
+            console.log(response.status);
+          }
+        }
+
+      )
 
 
 
@@ -109,8 +109,11 @@ function App() {
             (response) => {
               // Проверяем, что сервер ответил ОК и только потом обновляем state нашего UI объекта
               if (response.status == 200) {
-                fetch('https://todo.soprano.biz/task/')
-                alert('ds')
+                //////////////////////////////////
+                fetch('https://todo.soprano.biz/task')
+                  .then(response => response.json())
+                  .then((data) => setTask(data))
+                  ////////////////////////////
                 console.log(response.status);
               }
             }
