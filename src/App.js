@@ -4,8 +4,6 @@ import './App.css';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
-
-
 function App() {
   const [todo, setTodo] = useState([])
   const [inputs, setInputs] = useState([])
@@ -32,6 +30,7 @@ function App() {
       .then((data) => setTask(data))
   }, [])
 
+/////////////////////
   const addfrominput = () => {
     // отправляем запрос на добавление записи на сервер
     fetch('https://todo.soprano.biz/note',
@@ -47,10 +46,8 @@ function App() {
         setList([...list, { value: inputs, id: random }])
         setTodo([...todo, { name: inputs, id: random }])
       }
-    }
-    )
+    })
   }
-
 
   ///////////////////////////////
   const deletehandler = (id) => {
@@ -74,9 +71,8 @@ function App() {
     })
   }
 
-
+//////////////////////////
   const checkbox = (id) => {
-
     let objtask = {
       subject: `done`,
       resolved: true
@@ -117,23 +113,13 @@ function App() {
         headers: { 'Content-type': 'application/json; charset=UTF-8', },
       }
     )
-
-    
     //  надо получить массив с отфильтрованными таксками по id
-    let b = task.filter(item => {
+    let result = task.filter(item => {
       if (id === item.note_id) { return true }
     })
-    setTaskfiltered(b)
-    console.log(b)
-    // document.location.reload();
+    setTaskfiltered(result)
   }
-
-  //////////////////////////////////////
-  const showdTask = (id) => {
-   
-  }
-
-
+  
   return (
     <div>
       <div className='position'>
@@ -166,8 +152,6 @@ function App() {
                   <input type="checkbox" checked={item.resolved} ></input>
                   <span onClick={() => checkbox(item.id)} className='pointer' >  {item.subject} </span>
                   <Button variant="text" onClick={() => deletetask(item.id)}> delete task</Button>
-                   
-
                 </div>
               </div>
             )
@@ -176,5 +160,4 @@ function App() {
     </div >
   );
 }
-
 export default App;
