@@ -30,7 +30,7 @@ function App() {
       .then((data) => setTask(data))
   }, [])
 
-/////////////////////
+  /////////////////////
   const addfrominput = () => {
     // отправляем запрос на добавление записи на сервер
     fetch('https://todo.soprano.biz/note',
@@ -69,9 +69,25 @@ function App() {
     fetch(`https://todo.soprano.biz/task/${id}`, {
       method: 'DELETE',
     })
+
+    fetch('https://todo.soprano.biz/task')
+    .then(
+      (response) => {
+        // Проверяем, что сервер ответил ОК и только потом обновляем state нашего UI объекта
+        if (response.status == 200) {
+          fetch('https://todo.soprano.biz/task')
+       
+          console.log(response.status);
+        }
+      }
+
+    )
+
+
+
   }
 
-//////////////////////////
+  //////////////////////////
   const checkbox = (id) => {
     let objtask = {
       subject: `done`,
@@ -88,13 +104,34 @@ function App() {
             'Content-type': 'application/json; charset=UTF-8',
           }
         })
-        fetch('https://todo.soprano.biz/task',
-          {
-            method: 'POST',
-            body: JSON.stringify(objtask),
-            headers: { 'Content-type': 'application/json; charset=UTF-8', },
-          }
-        )
+        fetch('https://todo.soprano.biz/task')
+          .then(
+            (response) => {
+              // Проверяем, что сервер ответил ОК и только потом обновляем state нашего UI объекта
+              if (response.status == 200) {
+                fetch('https://todo.soprano.biz/task/')
+                alert('ds')
+                console.log(response.status);
+              }
+            }
+
+          )
+
+
+
+
+
+
+        // fetch('https://todo.soprano.biz/task',
+        //   {
+        //     method: 'POST',
+        //     body: JSON.stringify(objtask),
+        //     headers: { 'Content-type': 'application/json; charset=UTF-8', },
+        //   }
+        // )
+
+
+
       }
   }
 
@@ -119,7 +156,7 @@ function App() {
     })
     setTaskfiltered(result)
   }
-  
+
   return (
     <div>
       <div className='position'>
