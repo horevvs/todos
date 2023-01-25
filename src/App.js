@@ -75,9 +75,8 @@ function App() {
         (response) => {
           // Проверяем, что сервер ответил ОК и только потом обновляем state нашего UI объекта
           if (response.status == 200) {
-            fetch('https://todo.soprano.biz/task')
 
-            console.log(response.status);
+          
           }
         }
 
@@ -104,16 +103,13 @@ function App() {
             'Content-type': 'application/json; charset=UTF-8',
           }
         })
-        fetch('https://todo.soprano.biz/task')
           .then(
             (response) => {
               // Проверяем, что сервер ответил ОК и только потом обновляем state нашего UI объекта
               if (response.status == 200) {
-                //////////////////////////////////
-                fetch('https://todo.soprano.biz/task')
-                  .then(response => response.json())
-                  .then((data) => setTask(data))
-                  ////////////////////////////
+                ////////////////////////////////// как то надо обновить ссотояние
+              setTask(task)
+                ////////////////////////////
                 console.log(response.status);
               }
             }
