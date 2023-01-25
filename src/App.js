@@ -6,8 +6,6 @@ import TextField from '@mui/material/TextField';
 
 
 
-
-
 function App() {
   const [todo, setTodo] = useState([])
   const [inputs, setInputs] = useState([])
@@ -34,62 +32,46 @@ function App() {
       .then((data) => setTask(data))
   }, [])
 
-  //////////////////////////////
-  // const addfrominput = () => {
-  //   let random = Math.random().toFixed(2) * 100
-  //   setList([...list, { value: inputs, id: random }])
-  //   setTodo([...todo, { name: inputs, id: random }])
-  //   let index = list.at();
-  //   let obj = {
-  //     name: index.value
-  //   }
-  //   fetch('https://todo.soprano.biz/note',
-  //     {
-  //       method: 'POST',
-  //       body: JSON.stringify(obj),
-  //       headers: { 'Content-type': 'application/json; charset=UTF-8', },
-  //     }
-  //   )
-  //   document.location.reload();
-  // }
-
-const addfrominput = () => {
+  const addfrominput = () => {
     // отправляем запрос на добавление записи на сервер
     fetch('https://todo.soprano.biz/note',
       {
         method: 'POST',
-        body: JSON.stringify({name: inputs}),
+        body: JSON.stringify({ name: inputs }),
         headers: { 'Content-type': 'application/json; charset=UTF-8', },
       }
     ).then((response) => {
-        // Проверяем, что сервер ответил ОК и только потом обновляем state нашего UI объекта
-        if (response.status === 200) {
-          let random = Math.random().toFixed(2) * 100
-		  setList([...list, { value: inputs, id: random }])
-		  setTodo([...todo, { name: inputs, id: random }])
-		}
-		}
-		)
+      // Проверяем, что сервер ответил ОК и только потом обновляем state нашего UI объекта
+      if (response.status === 200) {
+        let random = Math.random().toFixed(2) * 100
+        setList([...list, { value: inputs, id: random }])
+        setTodo([...todo, { name: inputs, id: random }])
+      }
+    }
+    )
   }
-
-
 
 
   ///////////////////////////////
   const deletehandler = (id) => {
     fetch(`https://todo.soprano.biz/note/${id}`, {
       method: 'DELETE',
-    });
-    document.location.reload();
+    }).then(
+      (response) => {
+        // Проверяем, что сервер ответил ОК и только потом обновляем state нашего UI объекта
+        if (response.status === 200) {
+          fetch('https://todo.soprano.biz/note/')
+            .then((data) => setTodo(data))
+        }
+      }
+    )
   }
 
   /////////////////////////
   const deletetask = (id) => {
-    alert(id)
     fetch(`https://todo.soprano.biz/task/${id}`, {
       method: 'DELETE',
-    });
-    document.location.reload();
+    })
   }
 
 
@@ -118,7 +100,6 @@ const addfrominput = () => {
           }
         )
       }
-    document.location.reload();
   }
 
 
@@ -136,6 +117,8 @@ const addfrominput = () => {
         headers: { 'Content-type': 'application/json; charset=UTF-8', },
       }
     )
+
+    
     //  надо получить массив с отфильтрованными таксками по id
     let b = task.filter(item => {
       if (id === item.note_id) { return true }
@@ -145,13 +128,9 @@ const addfrominput = () => {
     // document.location.reload();
   }
 
-  ////////////////////////////////////
-  const send = (id, note_id) => {
-
-    alert(id)
-
-    alert(note_id)
-
+  //////////////////////////////////////
+  const showdTask = (id) => {
+   
   }
 
 
@@ -187,8 +166,8 @@ const addfrominput = () => {
                   <input type="checkbox" checked={item.resolved} ></input>
                   <span onClick={() => checkbox(item.id)} className='pointer' >  {item.subject} </span>
                   <Button variant="text" onClick={() => deletetask(item.id)}> delete task</Button>
-                  <TextField id="standard-basic" variant="standard" placeholder=' type notes ' value={inputs} onChange={(e) => setInputs(e.target.value)} />
-                  <Button onClick={() => send(item.id, item.subject)} >  edit </Button>
+                   
+
                 </div>
               </div>
             )
