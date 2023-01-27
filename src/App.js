@@ -69,21 +69,14 @@ function App() {
     fetch(`https://todo.soprano.biz/task/${id}`, {
       method: 'DELETE',
     })
-
     fetch('https://todo.soprano.biz/task')
       .then(
         (response) => {
           // Проверяем, что сервер ответил ОК и только потом обновляем state нашего UI объекта
           if (response.status == 200) {
-
-          
           }
         }
-
       )
-
-
-
   }
 
   //////////////////////////
@@ -113,24 +106,7 @@ function App() {
                 console.log(response.status);
               }
             }
-
           )
-
-
-
-
-
-
-        // fetch('https://todo.soprano.biz/task',
-        //   {
-        //     method: 'POST',
-        //     body: JSON.stringify(objtask),
-        //     headers: { 'Content-type': 'application/json; charset=UTF-8', },
-        //   }
-        // )
-
-
-
       }
   }
 
