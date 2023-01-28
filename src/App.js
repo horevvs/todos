@@ -10,6 +10,8 @@ function App() {
   const [task, setTask] = useState([])
   const [taskfiltered, setTaskfiltered] = useState([])
 
+
+
   useEffect(() => {
     fetch('https://todo.soprano.biz/note/')
       .then((response) => {
@@ -19,14 +21,16 @@ function App() {
       }
       )
       .then((data) => setTodo(data))
+
   }, [todo])
+
 
   useEffect(() => {
     fetch('https://todo.soprano.biz/task/')
       .then((response) => response.json())
       .then((data) => setTask(data))
   }, [])
- 
+
   ///////////////////////////////
   const deletehandler = (id) => {
     fetch(`https://todo.soprano.biz/note/${id}`, {
@@ -51,7 +55,7 @@ function App() {
       .then(
         (response) => {
           // Проверяем, что сервер ответил ОК и только потом обновляем state нашего UI объекта
-          if (response.status == 200) {
+          if (response.status === 200) {
           }
         }
       )
@@ -77,9 +81,9 @@ function App() {
           .then(
             (response) => {
               // Проверяем, что сервер ответил ОК и только потом обновляем state нашего UI объекта
-              if (response.status == 200) {
+              if (response.status === 200) {
                 ////////////////////////////////// как то надо обновить ссотояние
-              setTask(task)
+                setTask(task)
                 ////////////////////////////
                 console.log(response.status);
               }
@@ -109,9 +113,22 @@ function App() {
     setTaskfiltered(result)
   }
 
+  const handleChange = (event) => {
+
+    let name = event.target.name;
+    let value = event.target.value;
+    setEdit(value );
+
+console.log(edit)
+
+    // setEdit(event.target.value);
+  }
+
+
+
   return (
     <div>
-      <Maininput/>
+      <Maininput />
       <div className='position'>
         {todo.map((item) => {
           return (
@@ -119,9 +136,9 @@ function App() {
               <div className='notes'>
                 <span className='task'  >   {item.name}   </span>
                 <Button variant="text" onClick={() => deletehandler(item.id)}> delete Notes</Button> <br />
-                <input type="text" placeholder='add text for edit task' value={edit} onChange={(e) => setEdit(e.target.value)} />
+                <input type="text" placeholder='add text for edit task' name={item.id} value={edit.name} onChange={handleChange} />
                 <Button onClick={() => addTask(item.id, item.note_id)} >  add task </Button>
-                <Button onClick={() => addTask(item.id, item.note_id)} >  Show task </Button>
+                <Button onClick={() => addTask(item.id, item.note_id)} >  Shows task </Button>
               </div>
             </div>
           )
