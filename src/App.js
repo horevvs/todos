@@ -2,12 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import Maininput from './components/Maininput';
 
 function App() {
   const [todo, setTodo] = useState([])
-  const [inputs, setInputs] = useState([])
-  const [list, setList] = useState([])
   const [edit, setEdit] = useState([])
   const [task, setTask] = useState([])
   const [taskfiltered, setTaskfiltered] = useState([])
@@ -23,32 +21,12 @@ function App() {
       .then((data) => setTodo(data))
   }, [todo])
 
-
   useEffect(() => {
     fetch('https://todo.soprano.biz/task/')
       .then((response) => response.json())
       .then((data) => setTask(data))
   }, [])
-
-  /////////////////////
-  const addfrominput = () => {
-    // отправляем запрос на добавление записи на сервер
-    fetch('https://todo.soprano.biz/note',
-      {
-        method: 'POST',
-        body: JSON.stringify({ name: inputs }),
-        headers: { 'Content-type': 'application/json; charset=UTF-8', },
-      }
-    ).then((response) => {
-      // Проверяем, что сервер ответил ОК и только потом обновляем state нашего UI объекта
-      if (response.status === 200) {
-        let random = Math.random().toFixed(2) * 100
-        setList([...list, { value: inputs, id: random }])
-        setTodo([...todo, { name: inputs, id: random }])
-      }
-    })
-  }
-
+ 
   ///////////////////////////////
   const deletehandler = (id) => {
     fetch(`https://todo.soprano.biz/note/${id}`, {
@@ -110,7 +88,6 @@ function App() {
       }
   }
 
-
   ////////////////////////
   const addTask = (id) => {
     let objtask = {
@@ -134,10 +111,7 @@ function App() {
 
   return (
     <div>
-      <div className='position'>
-        <TextField id="standard-basic" variant="standard" placeholder=' type notes ' value={inputs} onChange={(e) => setInputs(e.target.value)} />
-        <Button variant="contained" size="small" onClick={addfrominput} > Add  Notes  </Button>
-      </div>
+      <Maininput/>
       <div className='position'>
         {todo.map((item) => {
           return (
