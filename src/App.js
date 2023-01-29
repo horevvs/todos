@@ -117,9 +117,9 @@ function App() {
 
     let name = event.target.name;
     let value = event.target.value;
-    setEdit(value );
+    setEdit(value);
 
-console.log(edit)
+    console.log(edit)
 
     // setEdit(event.target.value);
   }
@@ -139,6 +139,9 @@ console.log(edit)
                 <input type="text" placeholder='add text for edit task' name={item.id} value={edit.name} onChange={handleChange} />
                 <Button onClick={() => addTask(item.id, item.note_id)} >  add task </Button>
                 <Button onClick={() => addTask(item.id, item.note_id)} >  Shows task </Button>
+
+               
+
               </div>
             </div>
           )
