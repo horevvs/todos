@@ -25,6 +25,7 @@ function App() {
   }, [todo])
 
 
+
   useEffect(() => {
     fetch('https://todo.soprano.biz/task/')
       .then((response) => response.json())
@@ -115,7 +116,7 @@ function App() {
 
   const handleChange = (event) => {
 
-    let name = event.target.name;
+
     let value = event.target.value;
     setEdit(value);
 
@@ -140,9 +141,27 @@ function App() {
                 <Button onClick={() => addTask(item.id, item.note_id)} >  add task </Button>
                 <Button onClick={() => addTask(item.id, item.note_id)} >  Shows task </Button>
 
-               
-
+                {item.tasks.map((item) => {
+                return (
+                  <div key={item.id} className='board'>   {item.subject}
+                  </div>
+                )
+              }
+              )}
               </div>
+
+              {/* {item.tasks.map((item) => {
+                return (
+                  <div key={item.id} className='board'>   {item.subject}
+                  </div>
+                )
+              }
+              )} */}
+
+              {/* <div> {item.tasks[0].id} </div>
+              <div> {item.tasks[0].subject} </div>
+              <div> {item.tasks[1].subject} </div> */}
+
             </div>
           )
         })
