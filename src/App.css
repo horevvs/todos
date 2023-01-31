@@ -3,7 +3,8 @@
 .position{
 
     margin-left: 100px;
-    margin-top: 30px
+    margin-top: 30px;
+    padding: 4px;
 }
 
 .task{
@@ -26,12 +27,16 @@
 .board{
     border: 2px  solid rgb(38, 57, 230);
     width:80%;
+    padding: 4px;
 }
 
 
 .pointer{
    cursor: pointer
   }
+
+
+  
 
   /* .colortext {
 
