@@ -6,17 +6,14 @@ import TextField from '@mui/material/TextField';
 function Maininput() {
     const [todo, setTodo] = useState([])
     const [inputs, setInputs] = useState([])
-    const [list, setList] = useState([])
- 
+    // const [list, setList] = useState([])
+
 
     useEffect(() => {
         fetch('https://todo.soprano.biz/note/')
-            .then((response) => {
-                // Проверяем успешность запроса 
-                if (response.status !== 200) { console.log(response.status); }
-                return response.json()})
+            .then((response) => response.json())
             .then((data) => setTodo(data))
-    }, [todo])
+    }, [])
 
 
     const addfrominput = () => {
@@ -30,11 +27,16 @@ function Maininput() {
         ).then((response) => {
             // Проверяем, что сервер ответил ОК и только потом обновляем state нашего UI объекта
             if (response.status === 200) {
-                let random = Math.random().toFixed(2) * 100
-                setList([...list, { value: inputs, id: random }])
-                setTodo([...todo, { name: inputs, id: random }])
+                // let random = Math.random().toFixed(2) * 100
+                // setList([...list, { value: inputs, id: random }])
+                setTodo([...todo, { name: inputs }])
             }
         })
+        //дезаю запрос пjлучаю ответ складываю в todo обновленное сосотояние. но не изменяеться если в массиве зависимости ничего нету. 
+        fetch('https://todo.soprano.biz/note/')
+            .then((response) => response.json())
+            .then((data) => setTodo(data))
+
     }
 
     return (

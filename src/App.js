@@ -12,19 +12,15 @@ function App() {
 
   useEffect(() => {
     fetch('https://todo.soprano.biz/note/')
-      .then((response) => {
-        if (response.status !== 200) { console.log(response.status); }
-        return response.json()
-      }
-      )
+      .then((response) => response.json())
       .then((data) => setTodo(data))
-  }, [todo])
+  }, [])
 
   useEffect(() => {
     fetch('https://todo.soprano.biz/task/')
       .then((response) => response.json())
       .then((data) => setTask(data))
-  }, [task])
+  }, [])
 
   const deletehandler = (id) => {
     fetch(`https://todo.soprano.biz/note/${id}`, {
