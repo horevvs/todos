@@ -26,11 +26,7 @@ function App() {
   const deletehandler = (id) => {
     fetch(`https://todo.soprano.biz/note/${id}`, {
       method: 'DELETE',
-    })
-    
-    
-    
-    .then(
+    }).then(
       (response) => {
         if (response.status === 200) {
           fetch('https://todo.soprano.biz/note/')
@@ -38,7 +34,6 @@ function App() {
         }
         document.location.reload()
       }
-
     )
   }
 
@@ -102,8 +97,6 @@ function App() {
       }
     }
     )
-
-    
   }
 
   const handleChange = (event) => {
@@ -128,12 +121,9 @@ function App() {
                     <div key={item.id} className='board'>
                       <input type="checkbox" checked={item.resolved} ></input>
                       <span onClick={() => checkbox(item.id)} className='pointer' >  {item.subject} </span>
-                      {/* <Button variant="text" onClick={() => deletetask(item.id)}> delete task</Button> */}
-
                       <Button variant="outlined" startIcon={<DeleteIcon />} onClick={() => deletetask(item.id)} size='small'>
                         Delete task
                       </Button>
-
                     </div>
                   )
                 })}
@@ -143,8 +133,6 @@ function App() {
         })
         }
       </div>
-
-
     </div>
   );
 }

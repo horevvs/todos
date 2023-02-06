@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
@@ -27,12 +26,7 @@ function Maininput() {
         )
         .then((response) => {
             // Проверяем, что сервер ответил ОК и только потом обновляем state нашего UI объекта
-            if (response.status === 200) {
-                // let random = Math.random().toFixed(2) * 100
-                // setList([...list, { value: inputs, id: random }])
-
-                // setTodos([...todo, { name: inputs }])
-            }
+            if (response.status === 200) {   }
             setTodo([...todo, { name: inputs }])
             document.location.reload()
         })
