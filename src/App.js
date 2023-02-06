@@ -10,6 +10,7 @@ function App() {
   const [edit, setEdit] = useState([])
   const [task, setTask] = useState([])
 
+
   useEffect(() => {
     fetch('https://todo.soprano.biz/note/')
       .then((response) => response.json())
@@ -25,13 +26,19 @@ function App() {
   const deletehandler = (id) => {
     fetch(`https://todo.soprano.biz/note/${id}`, {
       method: 'DELETE',
-    }).then(
+    })
+    
+    
+    
+    .then(
       (response) => {
         if (response.status === 200) {
           fetch('https://todo.soprano.biz/note/')
             .then((data) => setTodo(data))
         }
+        document.location.reload()
       }
+
     )
   }
 
@@ -40,7 +47,11 @@ function App() {
       method: 'DELETE',
     })
     fetch('https://todo.soprano.biz/task')
-      .then((response) => { if (response.status === 200) { } }
+      .then((response) => {
+        if (response.status === 200) {
+          document.location.reload()
+        }
+      }
       )
   }
 
@@ -62,6 +73,7 @@ function App() {
             (response) => {
               if (response.status === 200) {
                 setTask(task)
+                document.location.reload()
               }
             }
           )
@@ -74,6 +86,7 @@ function App() {
       note_id: id,
       resolved: false
     }
+
     fetch('https://todo.soprano.biz/task',
       {
         method: 'POST',
@@ -81,6 +94,16 @@ function App() {
         headers: { 'Content-type': 'application/json; charset=UTF-8', },
       }
     )
+    
+    fetch('https://todo.soprano.biz/task')
+    .then((response) => {
+      if (response.status === 200) {
+        document.location.reload()
+      }
+    }
+    )
+
+    
   }
 
   const handleChange = (event) => {
@@ -122,7 +145,7 @@ function App() {
       </div>
 
 
-    </div >
+    </div>
   );
 }
 export default App;

@@ -6,7 +6,6 @@ import TextField from '@mui/material/TextField';
 function Maininput() {
     const [todo, setTodo] = useState([])
     const [inputs, setInputs] = useState([])
-    // const [list, setList] = useState([])
 
 
     useEffect(() => {
@@ -17,6 +16,7 @@ function Maininput() {
 
 
     const addfrominput = () => {
+
         // отправляем запрос на добавление записи на сервер
         fetch('https://todo.soprano.biz/note',
             {
@@ -24,19 +24,18 @@ function Maininput() {
                 body: JSON.stringify({ name: inputs }),
                 headers: { 'Content-type': 'application/json; charset=UTF-8', },
             }
-        ).then((response) => {
+        )
+        .then((response) => {
             // Проверяем, что сервер ответил ОК и только потом обновляем state нашего UI объекта
             if (response.status === 200) {
                 // let random = Math.random().toFixed(2) * 100
                 // setList([...list, { value: inputs, id: random }])
-                setTodo([...todo, { name: inputs }])
-            }
-        })
-        //дезаю запрос пjлучаю ответ складываю в todo обновленное сосотояние. но не изменяеться если в массиве зависимости ничего нету. 
-        fetch('https://todo.soprano.biz/note/')
-            .then((response) => response.json())
-            .then((data) => setTodo(data))
 
+                // setTodos([...todo, { name: inputs }])
+            }
+            setTodo([...todo, { name: inputs }])
+            document.location.reload()
+        })
     }
 
     return (
